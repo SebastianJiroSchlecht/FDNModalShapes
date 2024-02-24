@@ -103,22 +103,23 @@ ylabel('Residue Angle')
 % plot slow Eigenvectors
 figure; hold on; grid on; 
 for it = 1:N
-    plot(real(RV{it}(:,11))+it);
+    plot(real(RV{it}(:,7))+it);
     set(gca,'ColorOrderIndex',1);
 end
 % legend('Mode 1','Mode 2','Mode 3')
 ylabel('Delay line number');
 xlabel('Delay line samples')
 
-% for it = 1:N
-%     figure;
-%     plot(real(RV{it}(:,slowInd))+it,'LineWidth',2);
-%     set(gca,'ColorOrderIndex',1);
-%     axis off
-%     xlim([0 max(m)])
-%     set(gcf,'Position',[0 0 1000 150])
-%     saveas(gcf,sprintf('mode%d.png',it))
-% end
+for it = 1:N
+    figure; hold on
+    plot(real(RV{it}(:,11)),'-','LineWidth',2,'Marker','.','MarkerSize',19);
+    plot(real(LV{it}(:,11)),'--','LineWidth',2,'Marker','.','MarkerSize',19);
+    set(gca,'ColorOrderIndex',1);
+    axis off
+    xlim([0 max(m)])
+    set(gcf,'Position',[0 0 1000 150])
+    saveas(gcf,sprintf('./results/mode%d.png',it))
+end
 
 % plot all Eigenvectors
 figure; hold on;
