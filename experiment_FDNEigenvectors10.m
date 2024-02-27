@@ -112,8 +112,8 @@ xlabel('Delay line samples')
 
 for it = 1:N
     figure; hold on
-    plot(real(RV{it}(:,11)),'-','LineWidth',2,'Marker','.','MarkerSize',19);
-    plot(real(LV{it}(:,11)),'--','LineWidth',2,'Marker','.','MarkerSize',19);
+    plot(real(RV{it}(:,11)),'-','LineWidth',8,'Marker','.','MarkerSize',19,'Color','black');
+    plot(real(LV{it}(:,11)),'--','LineWidth',8,'Marker','.','MarkerSize',19,'Color',[1 1 1]*0.5);
     set(gca,'ColorOrderIndex',1);
     axis off
     xlim([0 max(m)])
