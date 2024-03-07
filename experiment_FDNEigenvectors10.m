@@ -9,7 +9,7 @@ m = [13 19 23];
 g = 0.98;
 A = randomOrthogonal(N) * diag(g.^m);
 b = ones(N,1);
-c = ones(1,N);
+% c = ones(1,N);
 c = [0 0 1];
 d = zeros(1,1);
 
@@ -64,9 +64,6 @@ end
 
 for it = 1:1:23
     inputDelay = poles.'.^[0, 0, it];
-    inputDelay2 = 0*inputDelay;
-    ind = 26;
-    inputDelay2(ind,:) = inputDelay(ind,:);
     res_compact = (inputDelay .* lv' * b ) .* (c * rv).';
     ir_pr_pos(:,it) = pr2impz(res_compact, poles, direct, isConjugatePolePair,irLen);
 end
