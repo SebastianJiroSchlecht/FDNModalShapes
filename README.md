@@ -1,5 +1,4 @@
 # FDNModalShapes
 Modal Shapes of Feedback Delay Networks
 
-Additional media can be found here
-[https://sebastianjiroschlecht.github.io/FDNModalShapes/](https://sebastianjiroschlecht.github.io/FDNModalShapes/)
+This is the accompanying paper for "Modal Excitation in Feedback Delay Networks", which is currently under review.
