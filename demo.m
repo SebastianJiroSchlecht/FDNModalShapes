@@ -109,13 +109,23 @@ xlabel('Delay line samples')
 
 for it = 1:N
     figure; hold on
-    plot(real(RV{it}(:,11)),'-','LineWidth',8,'Marker','.','MarkerSize',19,'Color','black');
-    plot(real(LV{it}(:,11)),'--','LineWidth',8,'Marker','.','MarkerSize',19,'Color',[1 1 1]*0.5);
+    timedelay = linspace(0,m(it)-1,200);
+    plot(timedelay+1,real(rv(it,11) .* poles(11).'.^timedelay),'LineWidth',8,'Color',[1 1 1]*0.5); % continuous eigenvector function 
+    plot(real(RV{it}(:,11)),'o','LineWidth',8,'Marker','.','MarkerSize',43,'Color','black');
+    % plot(real(LV{it}(:,11)),'x','LineWidth',8,'Marker','.','MarkerSize',19,'Color',[1 1 1]*0.5);
     set(gca,'ColorOrderIndex',1);
     axis off
     xlim([0 max(m)])
     set(gcf,'Position',[0 0 1000 150])
-    saveas(gcf,sprintf('./results/mode%d.png',it))
+
+    % Set figure background to transparent
+    set(gca, 'Color', 'none');         % Set axes background to transparent
+    set(gcf, 'Color', 'none');         % Set figure background to transparent
+    
+    % saveas(gcf,sprintf('./results/mode%d.png',it))
+    % exportgraphics(gcf, sprintf('./results/mode%d.png', it), 'BackgroundColor', 'none', 'Resolution', 300);
+    % Save the figure using the print function with transparency workaround
+    print(gcf, sprintf('./results/mode%d.png', it), '-dpng', '-r300');
 end
 
 % plot all Eigenvectors
@@ -158,16 +168,20 @@ fs = 8000;
 % soundsc(ir_pr_pos(:),8000);
 IR_pos = fft(ir_pr_pos);
 ff = linspace(0,fs,1000);
-pp = (1:1:23) / 23;
+pp = (1:1:23) / 1;
 
 colororder([parula(44)])
 waterfall(pp, ff, db(IR_pos));
-xlabel('Relative Intap Position')
+xlabel_handle = xlabel('Intap Position $m_{\textrm{in},3}$');
 ylabel('Frequency (Hz)')
 zlabel('Magnitude (dB)')
 ylim([100 fs/2/2])
 zlim([-20 20])
 view([67 57])
+set(xlabel_handle, 'Rotation', -50);
+% Move the xlabel up (adjust the position)
+current_pos = get(xlabel_handle, 'Position');  % Get current position
+set(xlabel_handle, 'Position', [current_pos(1) - 10, current_pos(2) + 150, current_pos(3)]); 
 
 set(gcf,'Units', 'inches', 'Position', [0 0 3.5 2.5]);
 exportgraphics(gcf,'./results/varyingIntap.pdf')
